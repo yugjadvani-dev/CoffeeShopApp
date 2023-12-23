@@ -63,3 +63,10 @@ interface BorderRadius {
   radius_20: number;
   radius_25: number;
 }
+
+type TabParamList = {
+  Home: undefined;
+  Cart: undefined;
+  Favorite: undefined;
+  History: undefined;
+};
