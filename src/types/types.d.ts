@@ -70,3 +70,26 @@ type TabParamList = {
   Favorite: undefined;
   History: undefined;
 };
+
+interface HeaderBarProps {
+  title?: string;
+}
+
+interface GradientBGIconProps {
+  name: string;
+  color: string;
+  size: number;
+}
+
+interface CoffeeCardProps {
+  id: string;
+  index: number;
+  type: string;
+  roasted: string;
+  imagelink_square: ImageProps;
+  name: string;
+  special_ingredient: string;
+  average_rating: number;
+  price: any;
+  buttonPressHandler: any;
+}
