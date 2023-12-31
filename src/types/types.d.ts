@@ -93,3 +93,81 @@ interface CoffeeCardProps {
   price: any;
   buttonPressHandler: any;
 }
+
+interface ImageBackgroundInfoProps {
+  EnableBackHandler: boolean;
+  imagelink_portrait: ImageProps;
+  type: string;
+  id: string;
+  favourite: boolean;
+  name: string;
+  special_ingredient: string;
+  ingredients: string;
+  average_rating: number;
+  ratings_count: string;
+  roasted: string;
+  BackHandler?: any;
+  ToggleFavourite: any;
+}
+interface PriceProps {
+  price: string;
+  currency: string;
+}
+
+interface PaymentFooterProps {
+  price: PriceProps;
+  buttonPressHandler: any;
+  buttonTitle: string;
+}
+interface EmptyListAnimationProps {
+  title: string;
+}
+interface CartItemProps {
+  id: string;
+  name: string;
+  imagelink_square: ImageProps;
+  special_ingredient: string;
+  roasted: string;
+  prices: any;
+  type: string;
+  incrementCartItemQuantityHandler: any;
+  decrementCartItemQuantityHandler: any;
+}
+interface FavoritesItemCardProps {
+  id: string;
+  imagelink_portrait: ImageProps;
+  name: string;
+  special_ingredient: string;
+  type: string;
+  ingredients: string;
+  average_rating: number;
+  ratings_count: string;
+  roasted: string;
+  description: string;
+  favourite: boolean;
+  ToggleFavouriteItem: any;
+}
+interface PopUpAnimationProps {
+  style: any;
+  source: any;
+}
+interface PaymentMethodProps {
+  paymentMode: string;
+  name: string;
+  icon: any;
+  isIcon: boolean;
+}
+interface OrderHistoryCardProps {
+  navigationHandler: any;
+  CartList: any;
+  CartListPrice: string;
+  OrderDate: string;
+}
+interface OrderItemCardProps {
+  type: string;
+  name: string;
+  imagelink_square: ImageProps;
+  special_ingredient: string;
+  prices: any;
+  ItemPrice: string;
+}

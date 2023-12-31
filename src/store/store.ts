@@ -16,7 +16,7 @@ import BeansData from '../data/BeansData';
 
 export const useStore = create(
   persist(
-    (set, _get) => ({
+    (set, get) => ({
       CoffeeList: CoffeeData,
       BeanList: BeansData,
       CartPrice: 0,
@@ -43,7 +43,7 @@ export const useStore = create(
                 if (size === false) {
                   state.CartList[i].prices.push(cartItem.prices[0]);
                 }
-                state.CartList[i].price.sort((a: any, b: any) => {
+                state.CartList[i].prices.sort((a: any, b: any) => {
                   if (a.size > b.size) {
                     return -1;
                   }
@@ -86,7 +86,9 @@ export const useStore = create(
                 if (state.CoffeeList[i].id === id) {
                   if (state.CoffeeList[i].favourite === false) {
                     state.CoffeeList[i].favourite = true;
-                    state.FavoriteList.unshift(state.CoffeeList[i]);
+                    state.FavoritesList.unshift(state.CoffeeList[i]);
+                  } else {
+                    state.CoffeeList[i].favourite = false;
                   }
                   break;
                 }
@@ -96,7 +98,9 @@ export const useStore = create(
                 if (state.BeanList[i].id === id) {
                   if (state.BeanList[i].favourite === false) {
                     state.BeanList[i].favourite = true;
-                    state.FavoriteList.unshift(state.BeanList[i]);
+                    state.FavoritesList.unshift(state.BeanList[i]);
+                  } else {
+                    state.BeanList[i].favourite = false;
                   }
                   break;
                 }
@@ -134,6 +138,78 @@ export const useStore = create(
               }
             }
             state.FavoritesList.splice(spliceIndex, 1);
+          }),
+        ),
+      incrementCartItemQuantity: (id: string, size: string) =>
+        set(
+          produce(state => {
+            for (let i = 0; i < state.CartList.length; i++) {
+              if (state.CartList[i].id === id) {
+                for (let j = 0; j < state.CartList[i].prices.length; j++) {
+                  if (state.CartList[i].prices[j].size === size) {
+                    state.CartList[i].prices[j].quantity++;
+                    break;
+                  }
+                }
+              }
+            }
+          }),
+        ),
+      decrementCartItemQuantity: (id: string, size: string) =>
+        set(
+          produce(state => {
+            for (let i = 0; i < state.CartList.length; i++) {
+              if (state.CartList[i].id === id) {
+                for (let j = 0; j < state.CartList[i].prices.length; j++) {
+                  if (state.CartList[i].prices[j].size === size) {
+                    if (state.CartList[i].prices.length > 1) {
+                      if (state.CartList[i].prices[j].quantity > 1) {
+                        state.CartList[i].prices[j].quantity--;
+                      } else {
+                        state.CartList[i].prices.splice(j, 1);
+                      }
+                    } else {
+                      if (state.CartList[i].prices[j].quantity > 1) {
+                        state.CartList[i].prices[j].quantity--;
+                      } else {
+                        state.CartList.splice(i, 1);
+                      }
+                    }
+                    break;
+                  }
+                }
+              }
+            }
+          }),
+        ),
+      addToOrderHistoryListFromCart: () =>
+        set(
+          produce(state => {
+            let temp = state.CartList.reduce(
+              (accumulator: number, currentValue: any) =>
+                accumulator + parseFloat(currentValue.ItemPrice),
+              0,
+            );
+            if (state.OrderHistoryList.length > 0) {
+              state.OrderHistoryList.unshift({
+                OrderDate:
+                  new Date().toDateString() +
+                  ' ' +
+                  new Date().toLocaleTimeString(),
+                CartList: state.CartList,
+                CartListPrice: temp.toFixed(2).toString(),
+              });
+            } else {
+              state.OrderHistoryList.push({
+                OrderDate:
+                  new Date().toDateString() +
+                  ' ' +
+                  new Date().toLocaleTimeString(),
+                CartList: state.CartList,
+                CartListPrice: temp.toFixed(2).toString(),
+              });
+            }
+            state.CartList = [];
           }),
         ),
     }),

@@ -4,10 +4,14 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DetailsScreen from './screens/DetailsScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import TabNavigator from './navigators/TabNavigator';
+import SplashScreen from 'react-native-splash-screen';
 
 const Stack = createNativeStackNavigator();
 
 function App(): React.JSX.Element {
+  React.useEffect(() => {
+    SplashScreen.hide();
+  }, []);
   return (
     <>
       <NavigationContainer>
