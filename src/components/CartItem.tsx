@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ImageProps,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
   BORDERRADIUS,
@@ -16,18 +9,6 @@ import {
   SPACING,
 } from '../theme/theme';
 import CustomIcon from './CustomIcon';
-
-interface CartItemProps {
-  id: string;
-  name: string;
-  imagelink_square: ImageProps;
-  special_ingredient: string;
-  roasted: string;
-  prices: any;
-  type: string;
-  incrementCartItemQuantityHandler: any;
-  decrementCartItemQuantityHandler: any;
-}
 
 const CartItem: React.FC<CartItemProps> = ({
   id,
@@ -42,7 +23,7 @@ const CartItem: React.FC<CartItemProps> = ({
 }) => {
   return (
     <View>
-      {prices.length != 1 ? (
+      {prices.length !== 1 ? (
         <LinearGradient
           start={{x: 0, y: 0}}
           end={{x: 1, y: 1}}
@@ -73,7 +54,7 @@ const CartItem: React.FC<CartItemProps> = ({
                       styles.SizeText,
                       {
                         fontSize:
-                          type == 'Bean' ? FONTSIZE.size_12 : FONTSIZE.size_16,
+                          type === 'Bean' ? FONTSIZE.size_12 : FONTSIZE.size_16,
                       },
                     ]}>
                     {data.size}
@@ -140,7 +121,7 @@ const CartItem: React.FC<CartItemProps> = ({
                     styles.SizeText,
                     {
                       fontSize:
-                        type == 'Bean' ? FONTSIZE.size_12 : FONTSIZE.size_16,
+                        type === 'Bean' ? FONTSIZE.size_12 : FONTSIZE.size_16,
                     },
                   ]}>
                   {prices[0].size}

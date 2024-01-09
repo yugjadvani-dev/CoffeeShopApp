@@ -1,16 +1,5 @@
 import React from 'react';
-import {
-  Dimensions,
-  FlatList,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  ToastAndroid,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import * as reactNative from 'react-native';
 import {useStore} from '../store/store';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {
@@ -55,9 +44,8 @@ const HomeScreen = ({navigation}: any) => {
   const addToCart = useStore((state: any) => state.addToCart);
   const calculateCartPrice = useStore((state: any) => state.calculateCartPrice);
 
-  const [categories, setCategories] = React.useState(
-    getCategoriesFromData(CoffeeList),
-  );
+  const categories = getCategoriesFromData(CoffeeList);
+
   const [searchText, setSearchText] = React.useState('');
   const [categoryIndex, setCategoryIndex] = React.useState({
     index: 0,
@@ -67,7 +55,7 @@ const HomeScreen = ({navigation}: any) => {
     getCoffeeList(categoryIndex.category, CoffeeList),
   );
 
-  const ListRef: any = React.useRef<FlatList>();
+  const ListRef: any = React.useRef<reactNative.FlatList>();
 
   const tabBarHeight = useBottomTabBarHeight();
 
@@ -117,29 +105,29 @@ const HomeScreen = ({navigation}: any) => {
       prices,
     });
     calculateCartPrice();
-    ToastAndroid.showWithGravity(
+    reactNative.ToastAndroid.showWithGravity(
       `${name} is Added to Cart`,
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER,
+      reactNative.ToastAndroid.SHORT,
+      reactNative.ToastAndroid.CENTER,
     );
   };
 
   return (
-    <View style={styles.ScreenContainer}>
-      <StatusBar backgroundColor={COLORS.primaryBlackHex} />
-      <ScrollView
+    <reactNative.View style={styles.ScreenContainer}>
+      <reactNative.StatusBar backgroundColor={COLORS.primaryBlackHex} />
+      <reactNative.ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.ScrollViewFlex}>
         {/* App Header */}
         <HeaderBar />
 
-        <Text style={styles.ScreenTitle}>
+        <reactNative.Text style={styles.ScreenTitle}>
           Find the best{'\n'}coffee for you
-        </Text>
+        </reactNative.Text>
 
         {/* Search Input */}
-        <View style={styles.InputContainerComponent}>
-          <TouchableOpacity
+        <reactNative.View style={styles.InputContainerComponent}>
+          <reactNative.TouchableOpacity
             onPress={() => {
               searchCoffee(searchText);
             }}>
@@ -153,8 +141,8 @@ const HomeScreen = ({navigation}: any) => {
                   : COLORS.primaryLightGreyHex
               }
             />
-          </TouchableOpacity>
-          <TextInput
+          </reactNative.TouchableOpacity>
+          <reactNative.TextInput
             placeholder="Find Your Coffee..."
             value={searchText}
             onChangeText={text => {
@@ -165,7 +153,7 @@ const HomeScreen = ({navigation}: any) => {
             style={styles.TextInputContainer}
           />
           {searchText.length > 0 ? (
-            <TouchableOpacity
+            <reactNative.TouchableOpacity
               onPress={() => {
                 resetSearchCoffee();
               }}>
@@ -175,22 +163,22 @@ const HomeScreen = ({navigation}: any) => {
                 size={FONTSIZE.size_16}
                 color={COLORS.primaryLightGreyHex}
               />
-            </TouchableOpacity>
+            </reactNative.TouchableOpacity>
           ) : (
             <></>
           )}
-        </View>
+        </reactNative.View>
 
         {/* Category Scroller */}
-        <ScrollView
+        <reactNative.ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.CategoryScrollViewStyle}>
           {categories.map((data, index) => (
-            <View
+            <reactNative.View
               key={index.toString()}
               style={styles.CategoryScrollViewContainer}>
-              <TouchableOpacity
+              <reactNative.TouchableOpacity
                 style={styles.CategoryScrollViewItem}
                 onPress={() => {
                   ListRef?.current?.scrollToOffset({
@@ -202,7 +190,7 @@ const HomeScreen = ({navigation}: any) => {
                     ...getCoffeeList(categories[index], CoffeeList),
                   ]);
                 }}>
-                <Text
+                <reactNative.Text
                   style={[
                     styles.CategoryText,
                     categoryIndex.index === index
@@ -210,25 +198,27 @@ const HomeScreen = ({navigation}: any) => {
                       : {},
                   ]}>
                   {data}
-                </Text>
+                </reactNative.Text>
                 {categoryIndex.index === index ? (
-                  <View style={styles.ActiveCategory} />
+                  <reactNative.View style={styles.ActiveCategory} />
                 ) : (
                   <></>
                 )}
-              </TouchableOpacity>
-            </View>
+              </reactNative.TouchableOpacity>
+            </reactNative.View>
           ))}
-        </ScrollView>
+        </reactNative.ScrollView>
 
         {/* Coffee Flatlist */}
-        <FlatList
+        <reactNative.FlatList
           ref={ListRef}
           horizontal
           ListEmptyComponent={
-            <View style={styles.EmptyListContainer}>
-              <Text style={styles.CategoryText}>No Coffee Available</Text>
-            </View>
+            <reactNative.View style={styles.EmptyListContainer}>
+              <reactNative.Text style={styles.CategoryText}>
+                No Coffee Available
+              </reactNative.Text>
+            </reactNative.View>
           }
           showsHorizontalScrollIndicator={false}
           data={sortedCoffee}
@@ -236,7 +226,7 @@ const HomeScreen = ({navigation}: any) => {
           keyExtractor={item => item.id}
           renderItem={({item}) => {
             return (
-              <TouchableOpacity
+              <reactNative.TouchableOpacity
                 onPress={() => {
                   navigation.push('Details', {
                     index: item.index,
@@ -256,15 +246,17 @@ const HomeScreen = ({navigation}: any) => {
                   price={item.prices[2]}
                   buttonPressHandler={CoffeCardAddToCart}
                 />
-              </TouchableOpacity>
+              </reactNative.TouchableOpacity>
             );
           }}
         />
 
-        <Text style={styles.CoffeeBeansTitle}>Coffee Beans</Text>
+        <reactNative.Text style={styles.CoffeeBeansTitle}>
+          Coffee Beans
+        </reactNative.Text>
 
         {/* Beans Flatlist */}
-        <FlatList
+        <reactNative.FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
           data={BeanList}
@@ -275,7 +267,7 @@ const HomeScreen = ({navigation}: any) => {
           keyExtractor={item => item.id}
           renderItem={({item}) => {
             return (
-              <TouchableOpacity
+              <reactNative.TouchableOpacity
                 onPress={() => {
                   navigation.push('Details', {
                     index: item.index,
@@ -295,18 +287,18 @@ const HomeScreen = ({navigation}: any) => {
                   price={item.prices[2]}
                   buttonPressHandler={CoffeCardAddToCart}
                 />
-              </TouchableOpacity>
+              </reactNative.TouchableOpacity>
             );
           }}
         />
-      </ScrollView>
-    </View>
+      </reactNative.ScrollView>
+    </reactNative.View>
   );
 };
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({
+const styles = reactNative.StyleSheet.create({
   ScreenContainer: {
     flex: 1,
     backgroundColor: COLORS.primaryBlackHex,
@@ -365,7 +357,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.space_30,
   },
   EmptyListContainer: {
-    width: Dimensions.get('window').width - SPACING.space_30 * 2,
+    width: reactNative.Dimensions.get('window').width - SPACING.space_30 * 2,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: SPACING.space_36 * 3.6,

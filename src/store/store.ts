@@ -5,15 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import CoffeeData from '../data/CoffeeData';
 import BeansData from '../data/BeansData';
 
-// interface StoreState {
-//   CoffeeList: [];
-//   BeanList: [];
-//   CartPrice: number;
-//   FavoritesList: [];
-//   CartList: [];
-//   OrderHistoryList: [];
-// }
-
 export const useStore = create(
   persist(
     (set, get) => ({
@@ -72,7 +63,7 @@ export const useStore = create(
                   parseFloat(state.CartList[i].prices[j].price) *
                     state.CartList[i].prices[j].quantity;
               }
-              state.CartList[i].itemPrice = tempprice.toFixed(2).toString();
+              state.CartList[i].ItemPrice = tempprice.toFixed(2).toString();
               totalprice = totalprice + tempprice;
             }
             state.CartPrice = totalprice.toFixed(2).toString();
@@ -116,15 +107,19 @@ export const useStore = create(
                 if (state.CoffeeList[i].id === id) {
                   if (state.CoffeeList[i].favourite === true) {
                     state.CoffeeList[i].favourite = false;
+                  } else {
+                    state.CoffeeList[i].favourite = true;
                   }
                   break;
                 }
               }
-            } else if (type === 'Bean') {
+            } else if (type === 'Beans') {
               for (let i = 0; i < state.BeanList.length; i++) {
                 if (state.BeanList[i].id === id) {
                   if (state.BeanList[i].favourite === true) {
                     state.BeanList[i].favourite = false;
+                  } else {
+                    state.BeanList[i].favourite = true;
                   }
                   break;
                 }

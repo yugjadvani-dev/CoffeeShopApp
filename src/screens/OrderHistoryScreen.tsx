@@ -62,7 +62,7 @@ const OrderHistoryScreen = ({navigation}: any) => {
           <View style={styles.ItemContainer}>
             <HeaderBar title="Order History" />
 
-            {OrderHistoryList.length == 0 ? (
+            {OrderHistoryList.length === 0 ? (
               <EmptyListAnimation title={'No Order History'} />
             ) : (
               <View style={styles.ListItemContainer}>

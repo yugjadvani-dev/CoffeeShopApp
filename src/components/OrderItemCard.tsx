@@ -15,9 +15,7 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({
   imagelink_square,
   special_ingredient,
   prices,
-  ItemPrice,
 }) => {
-  console.log('🚀 ~ file: OrderItemCard.tsx:20 ~ ItemPrice 😀👏:', ItemPrice);
   return (
     <LinearGradient
       start={{x: 0, y: 0}}
@@ -31,11 +29,6 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({
             <Text style={styles.CardTitle}>{name}</Text>
             <Text style={styles.CardSubtitle}>{special_ingredient}</Text>
           </View>
-        </View>
-        <View>
-          <Text style={styles.CardCurrency}>
-            $ <Text style={styles.CardPrice}>{ItemPrice}</Text>
-          </Text>
         </View>
       </View>
       {prices.map((data: any, index: any) => (

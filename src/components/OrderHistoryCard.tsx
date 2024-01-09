@@ -2,16 +2,10 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../theme/theme';
 import OrderItemCard from './OrderItemCard';
-interface OrderHistoryCardProps {
-  navigationHandler: any;
-  CartList: any;
-  CartListPrice: string;
-  OrderDate: string;
-}
+
 const OrderHistoryCard: React.FC<OrderHistoryCardProps> = ({
   navigationHandler,
   CartList,
-  CartListPrice,
   OrderDate,
 }) => {
   return (
@@ -20,10 +14,6 @@ const OrderHistoryCard: React.FC<OrderHistoryCardProps> = ({
         <View>
           <Text style={styles.HeaderTitle}>Order Time</Text>
           <Text style={styles.HeaderSubtitle}>{OrderDate}</Text>
-        </View>
-        <View style={styles.PriceContainer}>
-          <Text style={styles.HeaderTitle}>Total Amount</Text>
-          <Text style={styles.HeaderPrice}>$ {CartListPrice}</Text>
         </View>
       </View>
       <View style={styles.ListContainer}>
